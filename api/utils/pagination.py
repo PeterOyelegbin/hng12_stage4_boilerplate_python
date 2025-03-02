@@ -83,7 +83,7 @@ def paginated_response(
                     getattr(getattr(join, "columns"),
                             attr).like(f"%{value}%"))
 
-    total = query.count()
+    total = int(query.count())
     results = jsonable_encoder(query.offset(skip).limit(limit).all())
     # total_pages = int(total / limit) + (total % limit > 0)
     total_pages = (total + limit - 1) // limit
