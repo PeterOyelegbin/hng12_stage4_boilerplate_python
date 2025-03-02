@@ -143,7 +143,7 @@ def test_get_products_filtered_by_category(client, db_session_mock):
 
     assert response.status_code == 200
     data = response.json()
-    assert data["success"] is True
+    assert data["status"] == "success"
     assert len(data["data"]["items"]) == 2
 
 
@@ -160,7 +160,7 @@ def test_get_all_products_without_filter(client, db_session_mock):
 
     assert response.status_code == 200
     data = response.json()
-    assert data["success"] is True
+    assert data["status"] == "success"
     assert len(data["data"]["items"]) == 3
 
 
@@ -188,7 +188,7 @@ def test_invalid_category_name(client, db_session_mock):
 
     assert response.status_code == 200
     data = response.json()
-    assert data["success"] is True
+    assert data["status"] == "success"
     assert len(data["data"]["items"]) == 0
 
 
@@ -205,5 +205,5 @@ def test_empty_results_for_valid_category(client, db_session_mock):
 
     assert response.status_code == 200
     data = response.json()
-    assert data["success"] is True
+    assert data["status"] == "success"
     assert len(data["data"]["items"]) == 0

@@ -8,15 +8,7 @@ from typing import List, Optional
 from api.utils.pagination import paginated_response
 from api.utils.success_response import success_response
 from api.db.database import get_db
-<<<<<<< HEAD
 from api.v1.models.product import Product, ProductCategory, ProductFilterStatusEnum, ProductStatusEnum
-=======
-from api.v1.models.product import (
-    Product,
-    ProductFilterStatusEnum,
-    ProductStatusEnum,
-)
->>>>>>> d1c5cb10636bc5483eabcbb20b2cbc5180405baf
 from api.v1.services.product import product_service, ProductCategoryService
 from api.v1.schemas.product import (
     ProductCategoryCreate,
@@ -42,7 +34,6 @@ non_organisation_product = APIRouter(prefix="/products", tags=["Products"])
     "", response_model=success_response, status_code=200
 )
 async def get_all_products(
-<<<<<<< HEAD
     current_user: Annotated[User, Depends(user_service.get_current_super_admin)],
     limit: Annotated[int, Query(
         ge=1, description="Number of products per page")] = 10,
@@ -50,17 +41,6 @@ async def get_all_products(
         ge=1, description="Page number (starts from 1)")] = 1,
     category: Annotated[Optional[str], Query(
         description="Filter products by category name")] = None,
-=======
-    current_user: Annotated[
-        User, Depends(user_service.get_current_super_admin)
-    ],
-    limit: Annotated[
-        int, Query(ge=1, description="Number of products per page")
-    ] = 10,
-    skip: Annotated[
-        int, Query(ge=1, description="Page number (starts from 1)")
-    ] = 0,
->>>>>>> d1c5cb10636bc5483eabcbb20b2cbc5180405baf
     db: Session = Depends(get_db),
 ):
     """
