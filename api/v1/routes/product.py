@@ -36,7 +36,7 @@ async def get_all_products(
     limit: Annotated[int, Query(
         ge=1, description="Number of products per page")] = 10,
     skip: Annotated[int, Query(
-        ge=1, description="Page number (starts from 1)")] = 0,
+        ge=0, description="Page number (starts from 0)")] = 0,
     category: Annotated[Optional[str], Query(
         description="Filter products by category name")] = None,
     db: Session = Depends(get_db),
