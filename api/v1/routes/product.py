@@ -36,7 +36,7 @@ async def get_all_products(
     limit: Annotated[int, Query(
         ge=1, description="Number of products per page")] = 10,
     skip: Annotated[int, Query(
-        ge=0, description="Page number (starts from 0)")] = 0,
+        ge=1, description="Page number (starts from 1)")] = 1,
     category: Annotated[Optional[str], Query(
         description="Filter products by category name")] = None,
     db: Session = Depends(get_db),
@@ -52,7 +52,10 @@ async def get_all_products(
     if category:
         query = query.join(Product.category).filter(ProductCategory.name.ilike(f"%{category}%"))
 
-    return paginated_response(db=db, model=Product, limit=limit, skip=skip, query=query)
+    # Calculate the number of items to skip based on the page number
+    items_to_skip = (skip - 1) * limit
+
+    return paginated_response(db=db, model=Product, limit=limit, skip=items_to_skip, query=query)
 
 
 # categories
